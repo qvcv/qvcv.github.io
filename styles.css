@@ -29,13 +29,14 @@ body {
 }
 
 .ascii-art {
-    font-size: 0.8rem;
+    font-size: 14.5px;
     white-space: pre;
 }
 
 .content {
-    font-size: 1.2rem;
-    line-height: 15px;
+    font-size: 14px;
+    line-height: 11px;
+    letter-spacing: 2px;
 }
 
 .smalltext {
