@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         myAudio = new Audio(audioFiles[currentAudioIndex]);  // Create new audio instance
-        myAudio.volume = 0.001;
+        myAudio.volume = 0.0001;
 
         // Play the audio
         myAudio.play();
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, false);
 
         // Gradually increase the volume
-        let volume = 0.001;
+        let volume = 0.0001;
         const targetVolume = 0.10;
         const volumeStep = 0.002;
         const intervalTime = 75;
