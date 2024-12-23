@@ -1,134 +1,172 @@
 document.addEventListener('DOMContentLoaded', () => {
-            const audioFiles = [
-                'audios/When You Gone - LUKEBIKE & Lil Darkie.mp3', 
-                'audios/ELECTRIC DANDELIONS - Lil Darkie.mp3', 
-                'audios/ANXIETY - Lil Darkie.mp3', 
-                'audios/just a little bit longer - Lil Darkie & CHRIST DILLINGER.mp3', 
-                'audios/where is darkie - Lil Darkie.mp3', 
-            ];
+	const audioFiles = [
+		'audios/REVOLVER - Lil Darkie.mp3',
+		'audios/DARKIE STILL CANNOT RAP PT. 1 (REMIX) - Lil Darkie.mp3',
+		'audios/When You Gone - LUKEBIKE & Lil Darkie.mp3', 
+		'audios/ELECTRIC DANDELIONS - Lil Darkie.mp3', 
+		'audios/ANXIETY - Lil Darkie.mp3', 
+		'audios/just a little bit longer - Lil Darkie & CHRIST DILLINGER.mp3', 
+		'audios/where is darkie - Lil Darkie.mp3', 
+		'audios/MARY JANE - Lil Darkie.mp3',
+		'audios/EGO DEATH - Lil Darkie.mp3',
+	];
 
-            let currentAudioIndex = 0;
-            const fadeScreen = document.querySelector('.fade-screen');
-            const mainContent = document.querySelector('.main-content');
-            let hasPlayed = false;
-            let myAudio = null;  // Declare myAudio outside the function to manage the instance.
+	let currentAudioIndex = 0;
+	const fadeScreen = document.querySelector('.fade-screen');
+	const mainContent = document.querySelector('.main-content');
+	let hasPlayed = false;
+	let myAudio = null;
 
-            fadeScreen.addEventListener('click', () => {
-                if (hasPlayed) return;
-                hasPlayed = true;
-                fadeScreen.style.opacity = '0';
-                setTimeout(() => {
-                    mainContent.style.opacity = '1';
-                    startTypeWriter();
-                }, 500);
+	fadeScreen.addEventListener('click', () => {
+		if (hasPlayed) return;
+		hasPlayed = true;
+		fadeScreen.style.opacity = '0';
+		setTimeout(() => {
+			mainContent.style.opacity = '1';
+			startTypeWriter();
+		}, 500);
 
-                setTimeout(() => {
-                    fadeScreen.classList.add('hidden');
-                    mainContent.classList.add('visible');
-                    playAudio();  // Start the first audio
-                }, 1000);
-            });
+		setTimeout(() => {
+			fadeScreen.classList.add('hidden');
+			mainContent.classList.add('visible');
+			playAudio();  
+		}, 1000);
+	});
 
-            function playAudio() {
-                // Check if the audioFiles array is populated
-                if (audioFiles.length === 0) {
-                    console.error("No audio files found!");
-                    return;
-                }
+    document.onkeydown = function(e) {
+        if(event.keyCode == 123) {
+            return false;
+        }
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+            alert("piss off skidatron");
+            return false;
+        }
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
+            alert("piss off skidatron");
+            return false;
+        }
+        if(e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) {
+            alert("piss off skidatron");
+            return false;
+        }
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+            alert("piss off skidatron");
+            return false;
+        }
+        if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+            alert("piss off skidatron");
+            return false;
+        }
+    };
 
-                // If there is already an audio instance, stop it before starting the new one
-                if (myAudio) {
-                    myAudio.pause();
-                    myAudio.currentTime = 0; // Reset to the beginning
-                }
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
+	
+	nextButton.addEventListener('click', () => {
+		currentAudioIndex = (currentAudioIndex + 1) % audioFiles.length;
+		playAudio();
+	});
 
-                myAudio = new Audio(audioFiles[currentAudioIndex]);  // Create new audio instance
-                myAudio.volume = 0.0001;
+	prevButton.addEventListener('click', () => {
+		currentAudioIndex = (currentAudioIndex - 1 + audioFiles.length) % audioFiles.length;
+		playAudio();
+	});
+	
+	function playAudio() {
+		if (audioFiles.length === 0) {
+			console.error("No audio files found!");
+			return;
+		}
 
-                // Play the audio
-                myAudio.play();
+		if (myAudio) {
+			myAudio.pause();
+			myAudio.currentTime = 0; 
+		}
 
-                // Display the current song
-                const currentSongElement = document.getElementById('currentSong');
-                currentSongElement.textContent = audioFiles[currentAudioIndex].split('/').pop().replace('.mp3', '');
+		myAudio = new Audio(audioFiles[currentAudioIndex]);  
+		myAudio.volume = 0.0001;
 
+		myAudio.play();
 
-                // Handle the end of the song and move to the next one
-                myAudio.addEventListener('ended', function () {
-                    currentAudioIndex = (currentAudioIndex + 1) % audioFiles.length;  // Move to next audio
-                    playAudio();  // Play the next audio in the array
-                }, false);
+		const currentSongElement = document.getElementById('currentSong');
+		currentSongElement.textContent = audioFiles[currentAudioIndex].split('/').pop().replace('.mp3', '');
 
-                // Gradually increase the volume
-                let volume = 0.0001;
-                const targetVolume = 0.10;
-                const volumeStep = 0.002;
-                const intervalTime = 75;
+		myAudio.addEventListener('ended', function () {
+			currentAudioIndex = (currentAudioIndex + 1) % audioFiles.length;  
+			playAudio();  
+		}, false);
 
-                const volumeIncrease = setInterval(() => {
-                    if (volume < targetVolume) {
-                        volume += volumeStep;
-                        myAudio.volume = volume;
-                    } else {
-                        clearInterval(volumeIncrease);
-                    }
-                }, intervalTime);
-            }
+		let volume = 0.0001;
+		const targetVolume = 0.10;
+		const volumeStep = 0.002;
+		const intervalTime = 75;
 
-            function startTypeWriter() {
-                var TxtType = function (el, toRotate, period) {
-                    this.toRotate = toRotate;
-                    this.el = el;
-                    this.loopNum = 0;
-                    this.period = parseInt(period, 10) || 2000;
-                    this.txt = '';
-                    this.tick();
-                    this.isDeleting = false;
-                };
+		const volumeIncrease = setInterval(() => {
+			if (volume < targetVolume) {
+				volume += volumeStep;
+				myAudio.volume = volume;
+			} else {
+				clearInterval(volumeIncrease);
+			}
+		}, intervalTime);
+	}
 
-                TxtType.prototype.tick = function () {
-                    var i = this.loopNum % this.toRotate.length;
-                    var fullTxt = this.toRotate[i];
+	function startTypeWriter() {
+		var TxtType = function (el, toRotate, period) {
+			this.toRotate = toRotate;
+			this.el = el;
+			this.loopNum = 0;
+			this.period = parseInt(period, 10) || 2000;
+			this.txt = '';
+			this.tick();
+			this.isDeleting = false;
+		};
 
-                    if (this.isDeleting) {
-                        this.txt = fullTxt.substring(0, this.txt.length - 1);
-                    } else {
-                        this.txt = fullTxt.substring(0, this.txt.length + 1);
-                    }
+		TxtType.prototype.tick = function () {
+			var i = this.loopNum % this.toRotate.length;
+			var fullTxt = this.toRotate[i];
 
-                    this.el.innerHTML = '<span class="wrap">' + this.txt + '</span>';
+			if (this.isDeleting) {
+				this.txt = fullTxt.substring(0, this.txt.length - 1);
+			} else {
+				this.txt = fullTxt.substring(0, this.txt.length + 1);
+			}
 
-                    var that = this;
-                    var delta = 200 - Math.random() * 100;
+			this.el.innerHTML = '<span class="wrap">' + this.txt + '</span>';
 
-                    if (this.isDeleting) { delta /= 2; }
+			var that = this;
+			var delta = 200 - Math.random() * 100;
 
-                    if (!this.isDeleting && this.txt === fullTxt) {
-                        delta = this.period;
-                        this.isDeleting = true;
-                    } else if (this.isDeleting && this.txt === '') {
-                        this.isDeleting = false;
-                        this.loopNum++;
-                        delta = 500;
-                    }
+			if (this.isDeleting) { delta /= 2; }
 
-                    setTimeout(function () {
-                        that.tick();
-                    }, delta);
-                };
+			if (!this.isDeleting && this.txt === fullTxt) {
+				delta = this.period;
+				this.isDeleting = true;
+			} else if (this.isDeleting && this.txt === '') {
+				this.isDeleting = false;
+				this.loopNum++;
+				delta = 500;
+			}
 
-                var elements = document.getElementsByClassName('typewrite');
-                for (var i = 0; i < elements.length; i++) {
-                    var toRotate = elements[i].getAttribute('data-type');
-                    var period = elements[i].getAttribute('data-period');
-                    if (toRotate) {
-                        new TxtType(elements[i], JSON.parse(toRotate), period);
-                    }
-                }
+			setTimeout(function () {
+				that.tick();
+			}, delta);
+		};
 
-                var css = document.createElement("style");
-                css.type = "text/css";
-                css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
-                document.body.appendChild(css);
-            }
-        });
+		var elements = document.getElementsByClassName('typewrite');
+		for (var i = 0; i < elements.length; i++) {
+			var toRotate = elements[i].getAttribute('data-type');
+			var period = elements[i].getAttribute('data-period');
+			if (toRotate) {
+				new TxtType(elements[i], JSON.parse(toRotate), period);
+			}
+		}
+
+		var css = document.createElement("style");
+		css.type = "text/css";
+		css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
+		document.body.appendChild(css);
+	}
+});
+		
