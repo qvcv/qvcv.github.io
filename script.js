@@ -113,8 +113,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		let volume = 0.0001;
 		const targetVolume = 0.10;
-		const volumeStep = 0.002;
-		const intervalTime = 75;
+		const volumeStep = 0.0005;
+		const intervalTime = 50;
 
 		const volumeIncrease = setInterval(() => {
 			if (volume < targetVolume) {
