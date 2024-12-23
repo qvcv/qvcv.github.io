@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	let currentAudioIndex = 0;
 	const fadeScreen = document.querySelector('.fade-screen');
 	const mainContent = document.querySelector('.main-content');
+	const playPause = document.getElementById('playPause');
+	let isPlaying = true;
 	let hasPlayed = false;
 	let myAudio = null;
 
@@ -32,8 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			playAudio();  
 		}, 1000);
 	});
-
-    document.onkeydown = function(e) {
+	
+	document.onkeydown = function(e) {
         if(event.keyCode == 123) {
             return false;
         }
@@ -59,9 +61,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    
     document.addEventListener('contextmenu', function(e) {
         e.preventDefault();
     });
+
+	playPause.addEventListener('click', () => {
+		if (isPlaying) { 
+			myAudio.pause();
+			playPause.innerHTML = '<i class="fas fa-play"></i>';
+		} else {
+			myAudio.play();
+			playPause.innerHTML = '<i class="fas fa-pause"></i>';
+		}
+		isPlaying = !isPlaying
+	});
 	
 	nextButton.addEventListener('click', () => {
 		currentAudioIndex = (currentAudioIndex + 1) % audioFiles.length;
@@ -94,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		myAudio.addEventListener('ended', function () {
 			currentAudioIndex = (currentAudioIndex + 1) % audioFiles.length;  
-			playAudio();  
+			playAudio();
 		}, false);
 
 		let volume = 0.0001;
