@@ -1,5 +1,11 @@
 html {
-    font-size: 16px; /* Set base font size */
+    font-size: 16px; /* Base font size */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
@@ -39,7 +45,7 @@ body {
 
 .content {
     font-size: 0.875rem; /* 14px / 16 */
-    line-height: 0.625rem; /* 10px / 16 */
+    line-height: 1.2; /* Unitless, scales with font size */
     letter-spacing: 0.125rem; /* 2px / 16 */
     padding: 0.625rem; /* 10px / 16 */
 }
@@ -80,7 +86,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.9375rem; /* 15px / 16 */
+    gap: 1em; /* Relative to font size */
     margin-top: 1.25rem; /* 20px / 16 */
 }
 
@@ -127,3 +133,5 @@ button {
         background-position: 0;
     }
 }
+
+@media (
