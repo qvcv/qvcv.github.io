@@ -2,13 +2,19 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <script src="/src/index.js" defer></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Interactive Personal Landing Page</title>
   </head>
   <body>
     <div id="root"></div>
-    <!-- The script should correctly reference the bundled main file after build -->
     <script type="module" src="/src/main.tsx"></script>
+    
+    <script>
+      window.addEventListener('load', function () {
+        typewriterTitle('@nixx', 150, 1);
+      });
+    </script>
   </body>
 </html>
