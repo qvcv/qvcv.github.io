@@ -1,15 +1,14 @@
 {
   "name": "vite-react-typescript-starter",
   "version": "0.0.0",
-  "homepage": "https://qvcv.github.io/",
-  "private": true,
+  "homepage": "https://qvcv.github.io/qvcv.github.io",
   "type": "module",
   "scripts": {
-    "dev": "react-scripts",
-    "build": "react-scripts build",
-    "start": "react-scripts start",
+    "dev": "vite",
+    "build": "vite build",
+    "start": "vite start",
     "lint": "eslint .",
-    "preview": "react-scripts preview",
+    "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
